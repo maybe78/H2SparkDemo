@@ -1,5 +1,6 @@
 package ru.maybe;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -109,12 +110,13 @@ public class CafeData {
         }
 
         private void makeVisit(SQLDataBase.Table visitTable) {
+            DateFormat df = new SimpleDateFormat(dbDateFormat);
             int cafeInd = new Random().nextInt(getCafeCount());
             int visits = new Random().nextInt(getVisitLimit());
             insertVisit(visitTable, new String[]{
                     String.valueOf(genNumber),
                     String.format("%s", getCafeNames().get(cafeInd)),
-                    String.format("DATE\'%s\'", new SimpleDateFormat(dbDateFormat).format(today.getTime())),
+                    String.format("DATE\'%s\'", df.format(today.getTime())),
                     String.valueOf(visits)
             });
         }
@@ -123,6 +125,7 @@ public class CafeData {
             genNumber++;
             if (genNumber % generationsLimit == 0) {
                 today.add(Calendar.DATE, 1);
+                System.out.println("slkdnfklbgfbs'klf;madl'kfngew;mf" + today.getTime());
             }
         }
     }

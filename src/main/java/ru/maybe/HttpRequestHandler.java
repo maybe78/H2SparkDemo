@@ -8,7 +8,7 @@ import spark.Response;
 import spark.Spark;
 
 class HttpRequestHandler {
-
+    private static final String GET_TRAFFIC_AVG = "/getTrafficAvg";
     private HttpRequestHandler() {
 
     }
@@ -18,7 +18,7 @@ class HttpRequestHandler {
         Spark.after((Request request, Response response) -> {
             response.type("application/json");
         });
-        Spark.get("/average", (request, response) -> CafeData.getAverageCafeVisits(), JsonUtil::toJson);
+        Spark.get(GET_TRAFFIC_AVG, (request, response) -> CafeData.getAverageCafeVisits(), JsonUtil::toJson);
     }
 
     public interface ResponseTransformer {

@@ -7,7 +7,7 @@ import java.util.*;
 import static ru.maybe.SQLDataBase.Table.Structure.SQLType.*;
 
 public class CafeData {
-    private static String dbDateFormat = "yyy-MM-yy";
+    private static String dbDateFormat = "yyy-MM-dd";
     /**
      * Table is represented as array of Cells, each storing column header and data type
      */
@@ -101,21 +101,24 @@ public class CafeData {
 
         @Override
         public void run() {
-            makeVisit(visitTable);
-            processNext();
+            for (int ind = 0; ind < cafeInstances; ind++) {
+                makeVisit(visitTable, ind);
+                processNext();
+            }
         }
 
         private void insertVisit(SQLDataBase.Table visit, String[] data) {
             visit.insert(data);
         }
 
-        private void makeVisit(SQLDataBase.Table visitTable) {
+        private void makeVisit(SQLDataBase.Table visitTable, int cafeDbIndex) {
             DateFormat df = new SimpleDateFormat(dbDateFormat);
-            int cafeInd = new Random().nextInt(getCafeCount());
+            if (cafeDbIndex < 0)
+                cafeDbIndex = new Random().nextInt(getCafeCount());
             int visits = new Random().nextInt(getVisitLimit());
             insertVisit(visitTable, new String[]{
                     String.valueOf(genNumber),
-                    String.format("%s", getCafeNames().get(cafeInd)),
+                    String.format("%s", getCafeNames().get(cafeDbIndex)),
                     String.format("DATE\'%s\'", df.format(today.getTime())),
                     String.valueOf(visits)
             });
@@ -125,7 +128,6 @@ public class CafeData {
             genNumber++;
             if (genNumber % generationsLimit == 0) {
                 today.add(Calendar.DATE, 1);
-                System.out.println("slkdnfklbgfbs'klf;madl'kfngew;mf" + today.getTime());
             }
         }
     }

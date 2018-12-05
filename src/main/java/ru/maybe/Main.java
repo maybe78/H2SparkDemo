@@ -8,11 +8,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 class Main {
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
     private static final Logger logger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
 
     public static void main(String[] args) throws Exception {
-        String dbName = "CafeReportData";
         int generationSecondsPeriod = 1;
         int generationStartSecondsDelay = 3;
         int requestUrlPort = 8090;
